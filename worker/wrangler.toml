@@ -4,13 +4,13 @@ main = "src/index.ts"
 # 打包配置
 minify = true # 生产环境压缩代码
 compatibility_flags = [ "nodejs_compat" ]
-compatibility_date = "2025-03-01"
+compatibility_date = "2025-09-06"
 
 # 启用 D1 数据库
 [[d1_databases]]
 binding = "DB"
-database_name = "tempmail"
-database_id = "a0ac606b-7fa0-40f2-8d62-1efc9a1a9948"  # 需要替换为您的实际数据库 ID
+database_name = "email"
+database_id = "1b5e4e86-ba4b-4612-b3bf-0c897666f506"  # 需要替换为您的实际数据库 ID
 
 # 配置邮件处理
 [triggers]
