@@ -222,14 +222,12 @@ export async function cleanupExpiredMailboxes(db: D1Database): Promise<number> {
  */
 export async function cleanupExpiredMails(db: D1Database): Promise<number> {
   const now = getCurrentTimestamp();
-  // 修改这里 邮件有效期10分钟
+  // 修改这一行 邮件有效期设为10分钟
   const tenMinutesAgo = now - 10 * 60; // 10分钟前的时间戳（秒）
   
   // 获取过期邮件的ID列表
-  // 修改这里 邮件有效期10分钟
-  const expiredEmails = await db.prepare(
-  `SELECT id FROM emails WHERE received_at <= ?`
-).bind(tenMinutesAgo).all();
+  // 修改这一行 邮件有效期设为10分钟
+  const expiredEmails = await db.prepare(`SELECT id FROM emails WHERE received_at <= ?`).bind(tenMinutesAgo).all();
   
   if (expiredEmails.results && expiredEmails.results.length > 0) {
     const emailIds = expiredEmails.results.map(row => row.id as string);
@@ -242,10 +240,8 @@ export async function cleanupExpiredMails(db: D1Database): Promise<number> {
   }
   
   // 删除过期邮件（会级联删除附件）
-  // 修改这里 邮件有效期10分钟
-  const result = await db.prepare(
-  `DELETE FROM emails WHERE received_at <= ?`
-).bind(tenMinutesAgo).run();
+  // 修改这一行 邮件有效期设为10分钟
+  const result = await db.prepare(`DELETE FROM emails WHERE received_at <= ?`).bind(tenMinutesAgo).run();
   
   // 清理可能存在的孤立附件
   await cleanupOrphanedAttachments(db);
