@@ -65,7 +65,8 @@ export async function createMailbox(db: D1Database, params: CreateMailboxParams)
     id: generateId(),
     address: params.address,
     createdAt: now,
-    expiresAt: calculateExpiryTimestamp(params.expiresInHours),
+    // 修改这一行，邮箱有效期设为10分钟
+    expiresAt: getCurrentTimestamp() + 10 * 60,
     ipAddress: params.ipAddress,
     lastAccessed: now,
   };
